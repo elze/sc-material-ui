@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+/*
+li.button-secondary {
+	color: white;
+    border-radius: 4px;	
+	background: rgb(66, 184, 221) !important; 
+	background-color: 3B31FF;
+}
+*/
+
+li.button-with-margin {
+  margin: 1em;
+  //background-color: #F0FFF0;
+  //color: #ffffff;
+  //background-color: #40E0D0;
+  //background-color: #3fc4bc;
+  width: 200px;
+  //border-radius: 10px;	
+}
+
+/*
+.MuiTreeItem-label {
+	background-color: #3fc4bc;
+	border-radius: 10px;	
+	color: #ffffff;
+}
+*/
