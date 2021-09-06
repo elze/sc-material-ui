@@ -37,29 +37,42 @@
   }
 }
 
-/*
-li.button-secondary {
-	color: white;
-    border-radius: 4px;	
-	background: rgb(66, 184, 221) !important; 
-	background-color: 3B31FF;
-}
-*/
-
-li.button-with-margin {
-  margin: 1em;
-  //background-color: #F0FFF0;
-  //color: #ffffff;
-  //background-color: #40E0D0;
-  //background-color: #3fc4bc;
-  width: 200px;
-  //border-radius: 10px;	
-}
-
-/*
-.MuiTreeItem-label {
+.classes-nesting-label-x {
 	background-color: #3fc4bc;
-	border-radius: 10px;	
-	color: #ffffff;
+	//color: white;
 }
-*/
+
+.classes-nesting-root-x {
+	//background-color: #3fc4bc;
+	border-radius: 10px;
+}	
+
+.tree-item-content {
+	padding: 10px 10px 10px 10px;
+	background-color: white	
+}
+
+.tree-item-expanded {
+	background-color: white
+}
+
+.tree-item-iconContainer {
+	background-color: white
+}
+
+.tree-item-label {
+	background-color: #FFEFD5;
+	border-radius: 10px;	
+	/* color: #ffffff; */
+	padding: 5px 5px 5px 5px;
+	width: 250px;
+}
+
+.tree-item-root {
+	margin: 5px 5px 5px 5px;	
+	width: 250px;
+}
+
+.tree-item-selected {
+	background-color: #adc9e6;
+}

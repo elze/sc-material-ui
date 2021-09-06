@@ -1,5 +1,7 @@
 import './App.css';
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -7,25 +9,59 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 
+const useStyles = makeStyles({
+  root: {
+    /* height: 240, */
+    flexGrow: 1,
+    maxWidth: 400,
+	border: "2px",
+	/* padding: "2px", */
+	margin: "10px 10px 10px 10px"
+  },
+  //label: 'classes-nesting-label-x'
+  label: {
+	  backgroundColor: "#3fc4bc",
+	  padding: "10px 10px 10px 10px"
+  }
+});
+
 const getTreeItemsFromData = treeItems => {
 	if (treeItems) {
-  return treeItems.map(treeItemData => {
-    let children = undefined;
-    if (treeItemData.successors && treeItemData.successors.length > 0) {
-      children = getTreeItemsFromData(treeItemData.successors);
-    }
-    return (
-      <TreeItem
-        key={treeItemData.id}
-        nodeId={treeItemData.id}
-        label={treeItemData.item}
-        children={children}		
-      />
-    );
-  });
+		const treeClasses = makeStyles({
+		  label: {
+			backgroundColor: "#3fc4bc",
+			borderRadius: "10px",
+			color: "#ffffff",
+			padding: "5px 5px 5px 5px"
+		  }
+		});
+		
+	  return treeItems.map(treeItemData => {
+		let children = undefined;
+		if (treeItemData.successors && treeItemData.successors.length > 0) {
+		  children = getTreeItemsFromData(treeItemData.successors);
+		}
+		return (
+		  <TreeItem
+			  classes={{
+				  root: 'tree-item-root',
+				label: 'tree-item-label', // treeClasses.label, // class name, e.g. `classes-nesting-label-x`
+				content: 'tree-item-content',
+				expanded: 'tree-item-expanded',
+				iconContainer: 'tree-item-iconContainer',
+				selected: 'tree-item-selected'
+			  }}		  
+			key={treeItemData.id}
+			nodeId={treeItemData.id}
+			label={treeItemData.item}
+			children={children}		
+		  />
+		);
+	  });
 	}
 };
 const DataTreeView = ({ treeItems }) => {
+	const classes = useStyles();
   return (
     <TreeView
       defaultCollapseIcon={<ExpandMoreIcon />}
@@ -47,11 +83,11 @@ function reducer(state, action) {
   }
 }
 
-export default function App() {
-	
+export default function App() {	
 	const initialState = {skills: []};
 	const [state, dispatch] = React.useReducer(reducer, initialState);
 	const { trackPageView, trackEvent } = useMatomo();
+	//const classes = useStyles();
 	trackPageView({
 	  documentTitle: `App component with Material UI Treeview: `, // optional
 	  //href: `http://localhost:3000`, // optional
