@@ -56,16 +56,17 @@
 	background-color: white
 }
 
+/*
 .tree-item-iconContainer {
 	background-color: white
 }
+*/
 
 .tree-item-label {
 	background-color: #FFEFD5;
 	border-radius: 10px;	
 	/* color: #ffffff; */
 	padding: 5px 5px 5px 5px;
-	width: 250px;
 }
 
 .tree-item-root {

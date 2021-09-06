@@ -9,46 +9,61 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 
+/*
 const useStyles = makeStyles({
   root: {
-    /* height: 240, */
+    height: 240,
     flexGrow: 1,
     maxWidth: 400,
 	border: "2px",
-	/* padding: "2px", */
 	margin: "10px 10px 10px 10px"
   },
-  //label: 'classes-nesting-label-x'
   label: {
 	  backgroundColor: "#3fc4bc",
 	  padding: "10px 10px 10px 10px"
   }
 });
+*/
+
+const useStyles = makeStyles({
+	label: {
+		/* backgroundColor: "#3fc4bc", */
+		backgroundColor: "#FFEFD5",
+		borderRadius: "10px",
+		/* color: "#ffffff", */
+		padding: "5px 5px 5px 5px"
+	},
+	content: {
+		padding: "10px 10px 10px 10px",
+		backgroundColor: "white"
+	},
+	expanded: {
+		backgroundColor: "white"
+	},
+	//iconContainer: 'tree-item-iconContainer',
+	selected: { 
+		backgroundColor: "#adc9e6"
+	}
+});
 
 const getTreeItemsFromData = treeItems => {
-	if (treeItems) {
-		const treeClasses = makeStyles({
-		  label: {
-			backgroundColor: "#3fc4bc",
-			borderRadius: "10px",
-			color: "#ffffff",
-			padding: "5px 5px 5px 5px"
-		  }
-		});
-		
+	if (treeItems) {		
 	  return treeItems.map(treeItemData => {
 		let children = undefined;
 		if (treeItemData.successors && treeItemData.successors.length > 0) {
 		  children = getTreeItemsFromData(treeItemData.successors);
-		}
+		}		  		
+		const classes = useStyles();
+		console.log(`classes = ${JSON.stringify(classes)}`);
 		return (
 		  <TreeItem
 			  classes={{
 				  root: 'tree-item-root',
-				label: 'tree-item-label', // treeClasses.label, // class name, e.g. `classes-nesting-label-x`
-				content: 'tree-item-content',
-				expanded: 'tree-item-expanded',
-				iconContainer: 'tree-item-iconContainer',
+				label: classes.label, // 'tree-item-label', // treeClasses.label, // class name, e.g. `classes-nesting-label-x`
+				content: classes.content, // 'tree-item-content',
+				expanded: classes.expanded, // 'tree-item-expanded',
+				//iconContainer: 'tree-item-iconContainer',
+				// selected: classes.selected
 				selected: 'tree-item-selected'
 			  }}		  
 			key={treeItemData.id}
@@ -61,7 +76,7 @@ const getTreeItemsFromData = treeItems => {
 	}
 };
 const DataTreeView = ({ treeItems }) => {
-	const classes = useStyles();
+	//const classes = useStyles();
   return (
     <TreeView
       defaultCollapseIcon={<ExpandMoreIcon />}
