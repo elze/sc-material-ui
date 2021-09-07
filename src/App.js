@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -102,12 +101,13 @@ export default function App() {
 	const initialState = {skills: []};
 	const [state, dispatch] = React.useReducer(reducer, initialState);
 	const { trackPageView, trackEvent } = useMatomo();
-	//const classes = useStyles();
+	/*
 	trackPageView({
 	  documentTitle: `App component with Material UI Treeview: `, // optional
 	  //href: `http://localhost:3000`, // optional
 	  href: `https://material-ui-treeview-elze.vercel.app`, // optional	  	  
-	});	
+	});
+	*/	
   
 	React.useEffect(() => {    
 		async function getSkills() {
@@ -120,8 +120,8 @@ export default function App() {
 			console.log(`getSkills`);
 			trackPageView({
 			  documentTitle: `App component with Material UI Treeview: skills loaded `, // optional
-			  href: `http://localhost:3000`, // optional
-			  //href: `https://zeit-buttons-serverless-elze.vercel.app/primarySkill/${primaryTermDecoded}?sort=${sortParam}`, // optional	  
+			  //href: `http://localhost:3000`, // optional
+			  href: `https://material-ui-treeview-elze.vercel.app`,
 			});	 				
 			dispatch({type: 'setSkills', skills: skillsFromServer})
 		}
