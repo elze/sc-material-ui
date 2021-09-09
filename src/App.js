@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
@@ -8,28 +9,10 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 import { useMatomo } from '@datapunt/matomo-tracker-react'
 
-/*
-const useStyles = makeStyles({
-  root: {
-    height: 240,
-    flexGrow: 1,
-    maxWidth: 400,
-	border: "2px",
-	margin: "10px 10px 10px 10px"
-  },
-  label: {
-	  backgroundColor: "#3fc4bc",
-	  padding: "10px 10px 10px 10px"
-  }
-});
-*/
-
 const useStyles = makeStyles({
 	label: {
-		/* backgroundColor: "#3fc4bc", */
 		backgroundColor: "#FFEFD5",
 		borderRadius: "10px",
-		/* color: "#ffffff", */
 		padding: "5px 5px 5px 5px"
 	},
 	content: {
@@ -39,7 +22,6 @@ const useStyles = makeStyles({
 	expanded: {
 		backgroundColor: "white"
 	},
-	//iconContainer: 'tree-item-iconContainer',
 	selected: { 
 		backgroundColor: "#adc9e6"
 	}
@@ -53,16 +35,13 @@ const getTreeItemsFromData = treeItems => {
 		  children = getTreeItemsFromData(treeItemData.successors);
 		}		  		
 		const classes = useStyles();
-		console.log(`classes = ${JSON.stringify(classes)}`);
 		return (
 		  <TreeItem
 			  classes={{
 				  root: 'tree-item-root',
-				label: classes.label, // 'tree-item-label', // treeClasses.label, // class name, e.g. `classes-nesting-label-x`
+				label: classes.label, // 'tree-item-label', 
 				content: classes.content, // 'tree-item-content',
 				expanded: classes.expanded, // 'tree-item-expanded',
-				//iconContainer: 'tree-item-iconContainer',
-				// selected: classes.selected
 				selected: 'tree-item-selected'
 			  }}		  
 			key={treeItemData.id}
@@ -75,7 +54,6 @@ const getTreeItemsFromData = treeItems => {
 	}
 };
 const DataTreeView = ({ treeItems }) => {
-	//const classes = useStyles();
   return (
     <TreeView
       defaultCollapseIcon={<ExpandMoreIcon />}
@@ -86,30 +64,11 @@ const DataTreeView = ({ treeItems }) => {
   );
 };
 
-function reducer(state, action) {
-	console.log(`reducer: action.type = ${action.type}`);
-  switch (action.type) {
-	  case 'setSkills': 
-		let newState = {...state, skills: action.skills };
-		return newState;
-    default:
-      throw new Error();
-  }
-}
-
 export default function App() {	
-	const initialState = {skills: []};
-	const [state, dispatch] = React.useReducer(reducer, initialState);
+	const [skills, setSkills] = useState(null);
 	const { trackPageView, trackEvent } = useMatomo();
-	/*
-	trackPageView({
-	  documentTitle: `App component with Material UI Treeview: `, // optional
-	  //href: `http://localhost:3000`, // optional
-	  href: `https://material-ui-treeview-elze.vercel.app`, // optional	  	  
-	});
-	*/	
-  
-	React.useEffect(() => {    
+
+	useEffect(() => {    
 		async function getSkills() {
 			const response = await fetch('https://sc2019.skillclusters.com/sc/structskills');
 			const skillsFromServer = await response.json();
@@ -123,7 +82,7 @@ export default function App() {
 			  //href: `http://localhost:3000`, // optional
 			  href: `https://material-ui-treeview-elze.vercel.app`,
 			});	 				
-			dispatch({type: 'setSkills', skills: skillsFromServer})
+			setSkills(skillsFromServer);
 		}
 		console.log(`useEffect is running`);
 
@@ -137,7 +96,7 @@ export default function App() {
   return (
     <div className="App">
       <br />	
-      <DataTreeView treeItems={state.skills} />
+      <DataTreeView treeItems={skills} />
     </div>
   );
 }
