@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# A React.js app with Material UI TreeView
+
+This React.js app uses a Material UI TreeView and TreeItem component to display data recursively in a tree. It was written as a demo for Women Who Code ATX React.js meeting to demonstrate Material UI and TreeView.
+
+It is deployed here: https://sc-material-ui-elze.vercel.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

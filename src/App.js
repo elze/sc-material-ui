@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import TreeView from "@material-ui/lab/TreeView";
 import TreeItem from "@material-ui/lab/TreeItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -95,6 +96,8 @@ export default function App() {
 	
   return (
     <div className="App">
+	<Container maxWidth="sm"><h2>SkillClusters with Material UI</h2></Container>
+	<p>This application is created with React.js and Material UI TreeView component. The source code is here: <a href="https://github.com/elze/sc-material-ui">https://github.com/elze/sc-material-ui</a>.</p>
       <br />	
       <DataTreeView treeItems={skills} />
     </div>
