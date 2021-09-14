@@ -28,18 +28,18 @@ const useStyles = makeStyles({
 	}
 });
 
-const getTreeItemsFromData = treeItems => {
+const getTreeItemsFromData = (treeItems, trackEv) => {
 	if (treeItems) {		
 	  return treeItems.map(treeItemData => {
 		let children = undefined;
 		if (treeItemData.successors && treeItemData.successors.length > 0) {
-		  children = getTreeItemsFromData(treeItemData.successors);
+		  children = getTreeItemsFromData(treeItemData.successors, trackEv);
 		}		  		
 		const classes = useStyles();
 		return (
 		  <TreeItem
 			  classes={{
-				  root: 'tree-item-root',
+				root: 'tree-item-root',
 				label: classes.label, // 'tree-item-label', 
 				content: classes.content, // 'tree-item-content',
 				expanded: classes.expanded, // 'tree-item-expanded',
@@ -48,19 +48,20 @@ const getTreeItemsFromData = treeItems => {
 			key={treeItemData.id}
 			nodeId={treeItemData.id}
 			label={treeItemData.item}
-			children={children}		
+			children={children}
+			onIconClick={() => trackEv({ category: `Node expanded or collapsed`, action: treeItemData.item })}
 		  />
 		);
 	  });
 	}
 };
-const DataTreeView = ({ treeItems }) => {
+const DataTreeView = ({treeItems, trackEv}) => {
   return (
     <TreeView
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
     >
-      {getTreeItemsFromData(treeItems)}
+	  {getTreeItemsFromData(treeItems, trackEv)}
     </TreeView>
   );
 };
@@ -97,9 +98,11 @@ export default function App() {
   return (
     <div className="App">
 	<Container maxWidth="sm"><h2>SkillClusters with Material UI</h2></Container>
-	<p>This application is created with React.js and Material UI TreeView component. The source code is here: <a href="https://github.com/elze/sc-material-ui">https://github.com/elze/sc-material-ui</a>.</p>
+	<p>This application is created with React.js and Material UI TreeView component.</p> 
+	<p>The source code is here: <a href="https://github.com/elze/sc-material-ui">https://github.com/elze/sc-material-ui</a>.</p>
+	<p>Here is <a href="http://geekitude.com">the author's website</a>.</p>
       <br />	
-      <DataTreeView treeItems={skills} />
+      <DataTreeView treeItems={skills} trackEv={trackEvent} />
     </div>
   );
 }
